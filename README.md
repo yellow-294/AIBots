@@ -14,6 +14,15 @@ Install all the requirements using the command below
 $ pip install -r requirements.txt
 ```
 
+Generate your OpenAI API key
+Locate main.py and input the key in line 11
+
+```
+10 openai_client = OpenAI(
+11     api_key="PASTE API KEY HERE"
+12 )
+```
+
 ## Running
 
 Run the command below to compile the bash script
