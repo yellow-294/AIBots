@@ -1,10 +1,9 @@
 from fastapi import FastAPI
-from models import Conversation, Message, Role
 from openai import OpenAI
-from models import Conversation, Message
-from beanie import init_beanie
+from beanie import init_beanie, Document
 from typing import List
 from motor.motor_asyncio import AsyncIOMotorClient
+from models import Role, Message, Conversation
 
 app = FastAPI()
 
@@ -68,12 +67,6 @@ async def delete_conversation(id: str):
 @app.post("/prompts/{prompt}")
 async def read_item(prompt: str):
     return {"response": await chat_with_gpt(prompt)}
-
-
-# @app.on_event("shutdown")
-# async def shutdown_event():
-    # await Conversation.delete_all()
-
 
 openai_client = OpenAI(
     api_key="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"
