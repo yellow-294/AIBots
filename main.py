@@ -7,6 +7,10 @@ from models import Role, Message, Conversation
 
 app = FastAPI()
 
+openai_client = OpenAI(
+    api_key="PASTE API KEY HERE"
+)
+
 
 @app.on_event("startup")
 async def startup_event():
@@ -16,7 +20,7 @@ async def startup_event():
 # Create
 
 
-@app.post("/conversation/")
+@app.post("/conversation/create_message")
 async def create_message(role: str, content: str):
     input_tuple = ("role", role), ("content", content)
     input_dict = dict(input_tuple)
@@ -27,14 +31,14 @@ async def create_message(role: str, content: str):
 # Read all
 
 
-@app.get("/conversations/")
+@app.get("/conversations/read_all")
 async def read_all_conversations():
     return await Conversation.find_all().to_list()
 
 # Read specific
 
 
-@app.get("/conversations/{conversation_id}")
+@app.get("/conversations/read_one/{conversation_id}")
 async def read_conversation(id: str):
     return await Conversation.get(id)
 
